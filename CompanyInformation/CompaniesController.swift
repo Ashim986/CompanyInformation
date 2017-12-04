@@ -12,8 +12,15 @@ import UIKit
 class CompaniesController: UITableViewController {
     let cellID = "cellID"
 
+    let companies = [
+        Company(name: "Apple", founded: Date()),
+        Company(name: "Google", founded: Date()),
+        Company(name: "Facebook", founded: Date())
+        
+    ]
     override func viewDidLoad() {
         super.viewDidLoad()
+   
         
         view.backgroundColor = .yellow
         
@@ -21,24 +28,18 @@ class CompaniesController: UITableViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorColor = .white
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddCompany))
+        navigationItem.title = "Companies"
         setupNavigationStyle()
         
     }
     
-    func setupNavigationStyle() {
-        
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddCompany))
-        navigationItem.title = "Companies"
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barTintColor = .lightRed
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-    }
-    
+
     @objc func handleAddCompany() {
-        print("123")
+        
+        let createCompanyController = CreateCompanyController()
+        let navController = CustomNavigationController(rootViewController: createCompanyController)
+        present(navController, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -52,14 +53,16 @@ class CompaniesController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return companies.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let company = companies[indexPath.row]
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         
         cell.backgroundColor = .tealColor
-        cell.textLabel?.text = "The Company Name"
+        cell.textLabel?.text = company.name
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         cell.textLabel?.textColor = .white
         return cell

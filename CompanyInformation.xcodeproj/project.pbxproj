@@ -17,6 +17,8 @@
 		C5EB4C701FCE8A6200CE86BF /* CompanyInformationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB4C6F1FCE8A6200CE86BF /* CompanyInformationUITests.swift */; };
 		C5EB4C7E1FCE963800CE86BF /* NavigationSupportingContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB4C7D1FCE963800CE86BF /* NavigationSupportingContent.swift */; };
 		C5EB4C801FCFD20800CE86BF /* UIColor + theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB4C7F1FCFD20800CE86BF /* UIColor + theme.swift */; };
+		C5EB4C821FD1423900CE86BF /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB4C811FD1423900CE86BF /* Company.swift */; };
+		C5EB4C841FD1461F00CE86BF /* CreateCompanyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EB4C831FD1461F00CE86BF /* CreateCompanyController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		C5EB4C711FCE8A6200CE86BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5EB4C7D1FCE963800CE86BF /* NavigationSupportingContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSupportingContent.swift; sourceTree = "<group>"; };
 		C5EB4C7F1FCFD20800CE86BF /* UIColor + theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + theme.swift"; sourceTree = "<group>"; };
+		C5EB4C811FD1423900CE86BF /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		C5EB4C831FD1461F00CE86BF /* CreateCompanyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				C5EB4C4C1FCE8A6200CE86BF /* AppDelegate.swift */,
 				C5EB4C7D1FCE963800CE86BF /* NavigationSupportingContent.swift */,
 				C5EB4C4E1FCE8A6200CE86BF /* CompaniesController.swift */,
+				C5EB4C831FD1461F00CE86BF /* CreateCompanyController.swift */,
+				C5EB4C811FD1423900CE86BF /* Company.swift */,
 				C5EB4C7F1FCFD20800CE86BF /* UIColor + theme.swift */,
 				C5EB4C501FCE8A6200CE86BF /* Main.storyboard */,
 				C5EB4C561FCE8A6200CE86BF /* Assets.xcassets */,
@@ -271,8 +277,10 @@
 				C5EB4C801FCFD20800CE86BF /* UIColor + theme.swift in Sources */,
 				C5EB4C4F1FCE8A6200CE86BF /* CompaniesController.swift in Sources */,
 				C5EB4C4D1FCE8A6200CE86BF /* AppDelegate.swift in Sources */,
+				C5EB4C841FD1461F00CE86BF /* CreateCompanyController.swift in Sources */,
 				C5EB4C7E1FCE963800CE86BF /* NavigationSupportingContent.swift in Sources */,
 				C5EB4C551FCE8A6200CE86BF /* CompanyInformation.xcdatamodeld in Sources */,
+				C5EB4C821FD1423900CE86BF /* Company.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
