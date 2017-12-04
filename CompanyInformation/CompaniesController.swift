@@ -7,18 +7,18 @@
 //
 
 import UIKit
+import CoreData
 
 class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
     let cellID = "cellID"
-    var companies = [
-        Company(name: "Apple", founded: Date()),
-        Company(name: "Google", founded: Date()),
-        Company(name: "Facebook", founded: Date())
-        
-    ]
+    
+    var companies = [Company]()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
+        fetchCompany()
+        
         tableView.backgroundColor = UIColor.darkBlue
         tableView.tableFooterView = UIView()
         tableView.separatorColor = .white
@@ -28,6 +28,33 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         navigationItem.title = "Companies"
         setupNavigationStyle()
     }
+    private func fetchCompany(){
+        // attempt to fetch data from Core Data
+        
+        let persistanceContainer = NSPersistentContainer(name: "CompanyInformation")
+        persistanceContainer.loadPersistentStores { (storeDescription, loadError) in
+            
+            if let err = loadError {
+                fatalError("loading of store failed : \(err)")
+            }
+        }
+        let context = persistanceContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+        
+        do {
+            let companies = try context.fetch(fetchRequest)
+            
+            companies.forEach({ (company) in
+                print(company.name ?? "")
+            })
+        } catch let fetchError {
+            print("Failed to fetch result", fetchError)
+        }
+        
+        
+    }
+    
     func addCompany(company: Company) {
         companies.append(company)
         // insert a new index path into table view
@@ -72,7 +99,6 @@ class CompaniesController: UITableViewController, CreateCompanyControllerDelegat
         return 50
     }
    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 // custom delegateMethod for adding company to access specific method
 
@@ -71,10 +72,36 @@ class CreateCompanyController: UIViewController {
     
     @objc func handleSave() {
         print("trying to save company")
-        dismiss(animated: true, completion: nil)
-        guard let name = nameTextField.text else {return}
-        let company = Company(name: name, founded: Date())
-        createCompanyDelegate?.addCompany(company: company)
+        
+        
+        // initilization of our Core Data Stack
+        
+        let persistanceContainer = NSPersistentContainer(name: "CompanyInformation")
+        
+        persistanceContainer.loadPersistentStores { (storeDescription, loadError) in
+            
+            if let err = loadError {
+                fatalError("loading of store failed : \(err)")
+            }
+        }
+        
+        let context = persistanceContainer.viewContext
+        let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
+        
+        company.setValue(nameTextField.text, forKey: "name")
+        
+        // Perform The save action
+        do {
+            try  context.save()
+        } catch let err {
+            print("Failed to Save company , \(err)")
+        }
+       
+        
+//        dismiss(animated: true, completion: nil)
+//        guard let name = nameTextField.text else {return}
+//        let company = Company(name: name, founded: Date())
+//        createCompanyDelegate?.addCompany(company: company)
     }
 }
 
