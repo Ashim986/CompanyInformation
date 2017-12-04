@@ -8,11 +8,9 @@
 
 import UIKit
 
-
-class CompaniesController: UITableViewController {
+class CompaniesController: UITableViewController, CreateCompanyControllerDelegate {
     let cellID = "cellID"
-
-    let companies = [
+    var companies = [
         Company(name: "Apple", founded: Date()),
         Company(name: "Google", founded: Date()),
         Company(name: "Facebook", founded: Date())
@@ -20,25 +18,28 @@ class CompaniesController: UITableViewController {
     ]
     override func viewDidLoad() {
         super.viewDidLoad()
-   
-        
         view.backgroundColor = .yellow
-        
         tableView.backgroundColor = UIColor.darkBlue
         tableView.tableFooterView = UIView()
         tableView.separatorColor = .white
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAddCompany))
+        
         navigationItem.title = "Companies"
         setupNavigationStyle()
-        
+    }
+    func addCompany(company: Company) {
+        companies.append(company)
+        // insert a new index path into table view
+        let indexPath = IndexPath(row: companies.count - 1, section: 0)
+        tableView.insertRows(at: [indexPath], with: .automatic)
     }
     
-
     @objc func handleAddCompany() {
         
         let createCompanyController = CreateCompanyController()
         let navController = CustomNavigationController(rootViewController: createCompanyController)
+        createCompanyController.createCompanyDelegate = self
         present(navController, animated: true, completion: nil)
     }
     
