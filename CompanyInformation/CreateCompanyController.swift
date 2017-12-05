@@ -21,6 +21,8 @@ class CreateCompanyController: UIViewController {
     var company : Company? {
         didSet {
             nameTextField.text = company?.name
+            guard let founded = company?.founded else {return}
+            datePicker.date = founded
         }
     }
    
@@ -46,6 +48,13 @@ class CreateCompanyController: UIViewController {
         textFiled.translatesAutoresizingMaskIntoConstraints = false
         return textFiled
     }()
+    
+    let datePicker : UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+       return datePicker
+    }()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = company == nil ? "Create Company" : "Editing Company"
@@ -66,15 +75,18 @@ class CreateCompanyController: UIViewController {
         view.addSubview(lightBlueBackgroundView)
         lightBlueBackgroundView.addSubview(nameLabel)
         lightBlueBackgroundView.addSubview(nameTextField)
+        lightBlueBackgroundView.addSubview(datePicker)
         addViewConstraint()
     }
     private func addViewConstraint() {
-    NSLayoutConstraint.activate([lightBlueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor), lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor), lightBlueBackgroundView.rightAnchor.constraint(equalTo: view.rightAnchor), lightBlueBackgroundView.heightAnchor.constraint(equalToConstant:  50)])
+    NSLayoutConstraint.activate([lightBlueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor), lightBlueBackgroundView.leftAnchor.constraint(equalTo: view.leftAnchor), lightBlueBackgroundView.rightAnchor.constraint(equalTo: view.rightAnchor), lightBlueBackgroundView.heightAnchor.constraint(equalToConstant:  250)])
         
     
-        NSLayoutConstraint.activate([nameLabel.topAnchor.constraint(equalTo: lightBlueBackgroundView.topAnchor), nameLabel.leftAnchor.constraint(equalTo: lightBlueBackgroundView.leftAnchor, constant : 10), nameLabel.widthAnchor.constraint(equalToConstant : 60), nameLabel.heightAnchor.constraint(equalTo : lightBlueBackgroundView.heightAnchor)])
+        NSLayoutConstraint.activate([nameLabel.topAnchor.constraint(equalTo: lightBlueBackgroundView.topAnchor), nameLabel.leftAnchor.constraint(equalTo: lightBlueBackgroundView.leftAnchor, constant : 10), nameLabel.widthAnchor.constraint(equalToConstant : 60), nameLabel.heightAnchor.constraint(equalToConstant: 50)])
         
-        NSLayoutConstraint.activate([nameTextField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor), nameTextField.rightAnchor.constraint(equalTo: lightBlueBackgroundView.rightAnchor, constant : -10), nameTextField.topAnchor.constraint(equalTo: lightBlueBackgroundView.topAnchor), nameTextField.heightAnchor.constraint(equalTo: lightBlueBackgroundView.heightAnchor)])
+        NSLayoutConstraint.activate([nameTextField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor), nameTextField.rightAnchor.constraint(equalTo: lightBlueBackgroundView.rightAnchor, constant : -10), nameTextField.topAnchor.constraint(equalTo: lightBlueBackgroundView.topAnchor), nameTextField.heightAnchor.constraint(equalTo: nameLabel.heightAnchor)])
+        
+        NSLayoutConstraint.activate([datePicker.topAnchor.constraint(equalTo: nameLabel.bottomAnchor), datePicker.leftAnchor.constraint(equalTo: lightBlueBackgroundView.leftAnchor), datePicker.rightAnchor.constraint(equalTo: lightBlueBackgroundView.rightAnchor), datePicker.bottomAnchor.constraint(equalTo: lightBlueBackgroundView.bottomAnchor)])
     }
     
     @objc func handleCancel() {
@@ -96,6 +108,7 @@ class CreateCompanyController: UIViewController {
         let context = CoreDataManager.shared.persistancContainer.viewContext
         
         company?.name = nameTextField.text
+        company?.founded = datePicker.date
         do {
             try context.save()
             dismiss(animated: true, completion: {
@@ -111,6 +124,7 @@ class CreateCompanyController: UIViewController {
         let context =  CoreDataManager.shared.persistancContainer.viewContext
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
         company.setValue(nameTextField.text, forKey: "name")
+        company.setValue(datePicker.date, forKey: "founded")
         // Perform The save action
         do {
             try  context.save()
