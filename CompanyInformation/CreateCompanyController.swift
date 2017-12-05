@@ -12,10 +12,17 @@ import CoreData
 // custom delegateMethod for adding company to access specific method
 
 protocol CreateCompanyControllerDelegate {
-    func addCompany(company : Company)
+    func didAddCompany(company : Company)
+    func didEditCompany(company : Company)
 }
 
 class CreateCompanyController: UIViewController {
+    
+    var company : Company? {
+        didSet {
+            nameTextField.text = company?.name
+        }
+    }
    
     var createCompanyDelegate : CreateCompanyControllerDelegate?
     
@@ -39,11 +46,15 @@ class CreateCompanyController: UIViewController {
         textFiled.translatesAutoresizingMaskIntoConstraints = false
         return textFiled
     }()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = company == nil ? "Create Company" : "Editing Company"
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .darkBlue
         
-        navigationItem.title = "Create Company"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
         setupNavigationStyle()
@@ -71,37 +82,47 @@ class CreateCompanyController: UIViewController {
     }
     
     @objc func handleSave() {
-        print("trying to save company")
         
+        if company == nil {
+            // save new company
+            createNewCompany()
+        }else {
+            //update company
+            saveEditedCompany()
+        }
+
+    }
+    private func saveEditedCompany(){
+        let context = CoreDataManager.shared.persistancContainer.viewContext
         
-        // initilization of our Core Data Stack
-        
-        let persistanceContainer = NSPersistentContainer(name: "CompanyInformation")
-        
-        persistanceContainer.loadPersistentStores { (storeDescription, loadError) in
+        company?.name = nameTextField.text
+        do {
+            try context.save()
+            dismiss(animated: true, completion: {
+                self.createCompanyDelegate?.didEditCompany(company: self.company!)
+            })
             
-            if let err = loadError {
-                fatalError("loading of store failed : \(err)")
-            }
+        }catch let saveErr {
+            print("failed to save company changes :", saveErr)
         }
         
-        let context = persistanceContainer.viewContext
+    }
+    private func createNewCompany(){
+        let context =  CoreDataManager.shared.persistancContainer.viewContext
         let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
-        
         company.setValue(nameTextField.text, forKey: "name")
-        
         // Perform The save action
         do {
             try  context.save()
+            
+            // upon success dismiss view controller
+            dismiss(animated: true, completion: {
+                self.createCompanyDelegate?.didAddCompany(company: company as! Company)
+            })
+            
         } catch let err {
             print("Failed to Save company , \(err)")
         }
-       
-        
-//        dismiss(animated: true, completion: nil)
-//        guard let name = nameTextField.text else {return}
-//        let company = Company(name: name, founded: Date())
-//        createCompanyDelegate?.addCompany(company: company)
     }
 }
 
