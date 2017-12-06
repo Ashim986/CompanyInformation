@@ -13,8 +13,14 @@ class CustomNavigationController: UINavigationController {
         return .lightContent
     }
 }
+extension UINavigationController {
+    open override var preferredStatusBarStyle: UIStatusBarStyle{
+        return .lightContent
+    }
+}
 
 extension UIViewController {
+    
         func  setupNavigationStyle (){
             navigationController?.navigationBar.tintColor = .white
             navigationController?.navigationBar.isTranslucent = false
