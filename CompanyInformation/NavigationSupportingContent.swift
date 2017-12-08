@@ -14,20 +14,8 @@ class CustomNavigationController: UINavigationController {
     }
 }
 extension UINavigationController {
-    open override var preferredStatusBarStyle: UIStatusBarStyle{
+    override open var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
 }
 
-extension UIViewController {
-    
-        func  setupNavigationStyle (){
-            navigationController?.navigationBar.tintColor = .white
-            navigationController?.navigationBar.isTranslucent = false
-            navigationController?.navigationBar.barTintColor = .lightRed
-            navigationController?.navigationBar.prefersLargeTitles = true
-            navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-        }
-    
-}

@@ -16,13 +16,13 @@ class CompanyCell: UITableViewCell {
             if let imageData = company?.imageData {
                 companyImageView.image = UIImage(data: imageData)
             }
-            if let name = company?.name , let founded = company?.founded {
+            if let name = company?.companyName , let founded = company?.founded {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MMM dd , yyyy"
                 let foundedDateString = dateFormatter.string(from: founded)
                 companyTextLabel.text = "\(name) - Founded : \(foundedDateString)"
             }else{
-                companyTextLabel.text = company?.name
+                companyTextLabel.text = company?.companyName
             }
         }
     }
