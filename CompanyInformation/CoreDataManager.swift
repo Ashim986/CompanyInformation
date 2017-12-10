@@ -31,6 +31,8 @@ struct CoreDataManager {
         company.setValue(foundedDate, forKey: "founded")
         company.setValue(companyImageData, forKey: "imageData")
         
+        
+        
         // Perform The save action
         do {
             try  context.save()
@@ -44,22 +46,32 @@ struct CoreDataManager {
         }
     }
     
-    func createNewEmployee(employeeName : String) -> Error?{
+    func createNewEmployee(employeeName : String, employeeType : String ,company : Company, birthdate : Date) -> (employee : Employee? , err: Error?){
         let context = persistancContainer.viewContext
-        let employee = NSEntityDescription.insertNewObject(forEntityName: "Employee", into: context)
+        let employee = NSEntityDescription.insertNewObject(forEntityName: "Employee", into: context) as! Employee
+        
+        employee.company = company
+        employee.type = employeeType
+        
+//        let company = Company(context : context)
+//        company.employees
+//        employee.company
         
         employee.setValue(employeeName, forKey: "employeeName")
+        let employeeInformation = NSEntityDescription.insertNewObject(forEntityName: "EmployeeInformation", into: context) as! EmployeeInformation
+        employeeInformation.taxID = "456"
+        employeeInformation.birthdate = birthdate
+        
+       employee.employeeInformation = employeeInformation
         do {
             try context.save()
-            return nil
+            return (employee , nil)
         } catch let employeeSaveErr {
             print("Failed to create employee",employeeSaveErr)
-            return employeeSaveErr
+            return (nil,employeeSaveErr)
         }
      
     }
-    
-    
     
     func fetchCompanies() -> [Company]{
         let context = persistancContainer.viewContext
@@ -76,21 +88,21 @@ struct CoreDataManager {
         
     }
     
-    func fetchEmployee() -> [Employee]{
-        
-        let context = persistancContainer.viewContext
-        let fetchRequest = NSFetchRequest<Employee>(entityName: "Employee")
-        
-        do {
-            let fetchEmployee = try context.fetch(fetchRequest)
-            return fetchEmployee
-        } catch let fetchEmployeeError {
-            print("Failed to fetch employee", fetchEmployeeError)
-            return[]
-        }
-        
-        
+//    func fetchEmployee() -> [Employee]{
+//
+//        let context = persistancContainer.viewContext
+//        let fetchRequest = NSFetchRequest<Employee>(entityName: "Employee")
+//
+//        do {
+//            let fetchEmployee = try context.fetch(fetchRequest)
+//            return fetchEmployee
+//        } catch let fetchEmployeeError {
+//            print("Failed to fetch employee", fetchEmployeeError)
+//            return[]
+//        }
+//
+//
     
-    }
+//    }
     
 }

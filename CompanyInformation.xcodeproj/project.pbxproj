@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9A1B09C21FD5E95E00C47BE8 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1B09C11FD5E95E00C47BE8 /* CoreDataManager.swift */; };
+		9A56E9851FDCD3D800856507 /* EmployeeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A56E9841FDCD3D800856507 /* EmployeeType.swift */; };
 		9ACC41201FD7C0B50031D019 /* CompanyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ACC411F1FD7C0B50031D019 /* CompanyCell.swift */; };
 		9AE2B4561FD8A52D004BFDC4 /* CompaniesController+CreateCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2B4551FD8A52D004BFDC4 /* CompaniesController+CreateCompany.swift */; };
 		9AE2B4581FD8BAB6004BFDC4 /* CompanyController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE2B4571FD8BAB6004BFDC4 /* CompanyController+UITableView.swift */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		9A1B09C11FD5E95E00C47BE8 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		9A56E9841FDCD3D800856507 /* EmployeeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeType.swift; sourceTree = "<group>"; };
 		9ACC411F1FD7C0B50031D019 /* CompanyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCell.swift; sourceTree = "<group>"; };
 		9AE2B4551FD8A52D004BFDC4 /* CompaniesController+CreateCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompaniesController+CreateCompany.swift"; sourceTree = "<group>"; };
 		9AE2B4571FD8BAB6004BFDC4 /* CompanyController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompanyController+UITableView.swift"; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			children = (
 				9AE2B4591FD8C684004BFDC4 /* EmployeesController.swift */,
 				9AE2B45E1FD8CC3D004BFDC4 /* CreateEmployeeController.swift */,
+				9A56E9841FDCD3D800856507 /* EmployeeType.swift */,
 			);
 			path = Employee;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				C5EB4C4F1FCE8A6200CE86BF /* CompaniesController.swift in Sources */,
 				C5EB4C4D1FCE8A6200CE86BF /* AppDelegate.swift in Sources */,
 				C5EB4C841FD1461F00CE86BF /* CreateCompanyController.swift in Sources */,
+				9A56E9851FDCD3D800856507 /* EmployeeType.swift in Sources */,
 				9ACC41201FD7C0B50031D019 /* CompanyCell.swift in Sources */,
 				C5EB4C7E1FCE963800CE86BF /* NavigationSupportingContent.swift in Sources */,
 				C5EB4C551FCE8A6200CE86BF /* CompanyInformation.xcdatamodeld in Sources */,
