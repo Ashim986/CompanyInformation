@@ -67,7 +67,6 @@ class EmployeeController: UITableViewController, CreateEmployeeControllerDelegat
                 return employee.type == employeeTypes
             }))
         }
-      
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -69,7 +69,6 @@ class CreateEmployeeController : UIViewController{
         setupUI()
     }
     
-    
     @objc private func handleSave(){
         
         guard let company = company else {return}
@@ -91,9 +90,7 @@ class CreateEmployeeController : UIViewController{
             return
             
         }
-        
         guard let employeeType = employeeTypeSegmentedControl.titleForSegment(at: employeeTypeSegmentedControl.selectedSegmentIndex) else {return}
-        
         
         let touple = CoreDataManager.shared.createNewEmployee(employeeName: employeeName, employeeType: employeeType, company: company, birthdate: birthdate)
             
@@ -116,7 +113,6 @@ class CreateEmployeeController : UIViewController{
         let dateAlertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         dateAlertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(dateAlertController, animated: true, completion: nil)
-        
     }
         
     func setupUI() {
