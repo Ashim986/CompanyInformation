@@ -8,9 +8,9 @@
 
 import UIKit
 import CoreData
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+class CompaniesController : UITableViewController {
 
-class CompaniesController: UITableViewController  {
-    
     let cellID = "cellID"
     var companies = [Company]()
     
