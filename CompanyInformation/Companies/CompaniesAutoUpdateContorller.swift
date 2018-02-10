@@ -90,10 +90,22 @@ class CompaniesAutoUpdateController :  UITableViewController , NSFetchedResultsC
         tableView.register(CompanyCell.self, forCellReuseIdentifier: cellID)
         setupNavigationStyle()
         
-        Service.shared.downloadCompaniesFromServer()
+//        Service.shared.downloadCompaniesFromServer()
+        
+        // refresh Control
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        
+        self.refreshControl = refreshControl
         
     }
     
+    @objc private func handleRefresh(){
+        Service.shared.downloadCompaniesFromServer()
+        self.refreshControl?.endRefreshing()
+    }
     @objc private func handleDelete() {
         let request: NSFetchRequest<Company> = Company.fetchRequest()
         

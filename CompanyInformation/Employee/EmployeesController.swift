@@ -42,6 +42,7 @@ class EmployeeController: UITableViewController, CreateEmployeeControllerDelegat
     }
     
     var employeeTypes = [
+        EmployeeType.Interns.rawValue,
         EmployeeType.Executive.rawValue,
         EmployeeType.SeniorManagement.rawValue,
         EmployeeType.Staff.rawValue

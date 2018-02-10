@@ -59,7 +59,6 @@ struct Service {
                     let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
                     privateContext.parent = CoreDataManager.shared.persistancContainer.viewContext
                     
-                    print(jsonCompany.name)
                     
                     let company = Company(context: privateContext)
                     company.companyName = jsonCompany.name
@@ -75,8 +74,12 @@ struct Service {
                         
                         let employee = Employee(context: privateContext)
                         employee.employeeName = jsonEmployee.name
-                        
+                        let employeeInformation = EmployeeInformation(context: privateContext)
+                        let birthdayDate = dateFormatter.date(from: jsonEmployee.birthday)
+                        employeeInformation.birthdate = birthdayDate
                         employee.type = jsonEmployee.type
+                        
+                        employee.employeeInformation = employeeInformation
                         employee.company = company
                     })
                  
