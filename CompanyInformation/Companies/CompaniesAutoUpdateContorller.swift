@@ -77,6 +77,13 @@ class CompaniesAutoUpdateController :  UITableViewController , NSFetchedResultsC
     
     let cellID = "cellID"
     
+    lazy var refControl : UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
     override func viewDidLoad() {
          super .viewDidLoad()
         tableView.backgroundColor = UIColor.darkBlue
@@ -94,11 +101,7 @@ class CompaniesAutoUpdateController :  UITableViewController , NSFetchedResultsC
         
         // refresh Control
         
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .white
-        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        
-        self.refreshControl = refreshControl
+        self.refreshControl = refControl
         
     }
     
