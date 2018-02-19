@@ -99,12 +99,12 @@ class EmployeeController: UITableViewController, CreateEmployeeControllerDelegat
         let employee = allEmployee[indexPath.section][indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: employeeCellID, for: indexPath)
-        cell.textLabel?.text = employee.employeeName
+        cell.textLabel?.text = employee.fullName
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd , yyyy"
         
         if let birthDate = employee.employeeInformation?.birthdate {
-            cell.textLabel?.text = "\(employee.employeeName ?? "")  \(dateFormatter.string(from: birthDate))"
+            cell.textLabel?.text = "\(employee.fullName ?? "")  \(dateFormatter.string(from: birthDate))"
         }
         cell.backgroundColor = .tealColor
         cell.textLabel?.textColor = .white

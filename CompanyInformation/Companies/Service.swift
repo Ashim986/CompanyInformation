@@ -31,14 +31,10 @@ struct Service {
 //        }.resume()
 //    }
     
-    
     static let shared = Service()
-    
     let urlString = "https://api.letsbuildthatapp.com/intermediate_training/companies"
     
     func downloadCompaniesFromServer(){
-        print("Attempting to download Companies")
-        
         guard let url = URL(string: urlString) else {return}
         URLSession.shared.dataTask(with: url) { (data, response, err) in
             if let err = err {
@@ -50,15 +46,12 @@ struct Service {
 //            print(string)
             
             let jsonDecoder = JSONDecoder()
-            
             do{
                 let jsonCompanies = try jsonDecoder.decode([JSONCompany].self, from: data)
                 
                 jsonCompanies.forEach({ (jsonCompany) in
-                    
                     let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
                     privateContext.parent = CoreDataManager.shared.persistancContainer.viewContext
-                    
                     
                     let company = Company(context: privateContext)
                     company.companyName = jsonCompany.name
@@ -68,12 +61,10 @@ struct Service {
                     let foundedDate = dateFormatter.date(from: jsonCompany.founded)
                     company.founded = foundedDate
                     
-                  
-                   
                     jsonCompany.employees?.forEach({ (jsonEmployee) in
                         
                         let employee = Employee(context: privateContext)
-                        employee.employeeName = jsonEmployee.name
+                        employee.fullName = jsonEmployee.name
                         let employeeInformation = EmployeeInformation(context: privateContext)
                         let birthdayDate = dateFormatter.date(from: jsonEmployee.birthday)
                         employeeInformation.birthdate = birthdayDate
@@ -89,17 +80,13 @@ struct Service {
                     }catch let saveErr {
                         print("Failed to save company information", saveErr)
                     }
-                    
                 })
-                
             }catch let jsonError{
                 print("failed to get json Data", jsonError)
             }
-           
         }.resume()
     }
 }
-
 
 struct JSONCompany : Decodable {
     let name : String

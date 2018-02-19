@@ -9,7 +9,18 @@
 import UIKit
 import CoreData
 
-class CompaniesAutoUpdateController :  UITableViewController , NSFetchedResultsControllerDelegate{
+class CompaniesAutoUpdateController :  UITableViewController , NSFetchedResultsControllerDelegate, CreateCompanyControllerDelegate{
+    
+    
+    
+    func didAddCompany(company: Company) {
+        
+    }
+    
+    func didEditCompany(company: Company) {
+        
+    }
+    
     
     let companyName = "companyName"
     
@@ -99,10 +110,9 @@ class CompaniesAutoUpdateController :  UITableViewController , NSFetchedResultsC
         
 //        Service.shared.downloadCompaniesFromServer()
         
+        
         // refresh Control
-        
         self.refreshControl = refControl
-        
     }
     
     @objc private func handleRefresh(){
@@ -127,13 +137,16 @@ class CompaniesAutoUpdateController :  UITableViewController , NSFetchedResultsC
     
      @objc private func handleAdd(){
         
-        print("lets add a company called BMW")
+//        let context = CoreDataManager.shared.persistancContainer.viewContext
+//        let company = Company(context: context)
+//        company.companyName = "Apple"
+//
+//        try? context.save()
         
-        let context = CoreDataManager.shared.persistancContainer.viewContext
-        let company = Company(context: context)
-        company.companyName = "Apple"
-        
-        try? context.save()
+        let createCompanyController = CreateCompanyController()
+        let navController = CustomNavigationController(rootViewController: createCompanyController)
+        createCompanyController.createCompanyDelegate = self
+        present(navController, animated: true, completion: nil)
         
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
